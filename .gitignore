@@ -1,0 +1,13 @@
+# Node.js
+node_modules/
+
+# Output
+dist/
+*.js
+*.js.map
+
+# TypeScript
+*.tsbuildinfo
+
+# Visual Studio Code
+.vscode/
