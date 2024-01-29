@@ -11,3 +11,6 @@ dist/
 
 # Visual Studio Code
 .vscode/
+
+# Config
+*.env

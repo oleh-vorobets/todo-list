@@ -1,16 +1,16 @@
-import { SendMailOptions, createTransport } from 'nodemailer'
+import { SendMailOptions, createTransport } from "nodemailer";
 
-import AppError from './appError.js';
+import AppError from "./appError.js";
 
-const sendEmail = async (email: string, subject: string, message: string): Promise<AppError | void> => {
+const sendEmail = async (email: string, subject: string, message: string) => {
     try {
         // create transporter object using SMTP
         const transporter = createTransport({
             host: process.env.EMAIL_HOST,
-            port: Number(process.env.EMAIL_PORT),
+            port: +process.env.EMAIL_PORT!,
             auth: {
                 user: process.env.EMAIL_USERNAME,
-                pass: process.env.EMAIL_PASSWORD, 
+                pass: process.env.EMAIL_PASSWORD,
             },
         });
 
@@ -18,12 +18,15 @@ const sendEmail = async (email: string, subject: string, message: string): Promi
             from: process.env.EMAIL_USERNAME!,
             to: email,
             subject: subject,
-            text: message
+            text: message,
         };
 
         await transporter.sendMail(mailOptions);
     } catch (err) {
-        return new AppError(`Email message wasn't send. Please try again.`, 404);
+        return new AppError(
+            `Email message wasn't send. Please try again.`,
+            404
+        );
     }
 };
 
